@@ -50,7 +50,7 @@ class TelaPython:
         ]
         
         #Cria janela
-        self.janela = sg.Window("Trab Mat - Gerador de Funções").layout(layout)
+        self.janela = sg.Window("Trab Mat - Gerador de Funções", icon='buster.ico').layout(layout)
         
     def GeraFuncao(self, x = 0, a = 0, b = 0, c = 0, tipo = "sen"):
         #Gerando outra tupla para eixo Y, multiplicando por todos os valores da tupla X
@@ -95,7 +95,7 @@ class TelaPython:
             
             f = self.GeraFuncao(x, a, b, c, tipo)   
             
-            titulo = ("f(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * X)")
+            titulo = ("f(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * x)")
             
             #Recebe os dados da segunda função (g)
             a = float(self.values["A2"])
@@ -110,7 +110,7 @@ class TelaPython:
             #Tupla Eixo X |start           end        step|         Sempre baseado na primeira função
             g = self.GeraFuncao(x, a, b, c, tipo)    
             
-            titulo += ("  |  g(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * X)")
+            titulo += ("  |  g(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * x)")
 
             #Subplot das linhas de referencias do cartesiano e configurações
             fig = plt.figure("Gráfico das funções")
@@ -159,9 +159,11 @@ class TelaPython:
             #print(XInterseccao)
             #print(YInterseccao)
                 
-            print (f"[{self.tentativa} tentativa ]")
-                
-            if (Batem):
+            print (f"[{self.tentativa} tentativa]")
+            
+            if (first_line == second_line):
+                print("As funções são iguais!")
+            elif (Batem):
                 print ("Eles batem antes de encontrar o fantasma!")
             else:
                 print ("Boa! Eles não batem antes do fantasma!")
@@ -169,12 +171,13 @@ class TelaPython:
                 if (abs(f[-1]) - YFantasma <= 3):
                     print ("Sucesso! Você acertou o fanstasma!")
                 else:
-                    print ("Droga!! Você errou o fanstasma!")        
+                    print ("Droga! Você errou o fanstasma!")        
             
             print ("\n")        
             
             plt.show()
             plt.clf()
-
-tela = TelaPython()
-tela.Iniciar() 
+            
+if __name__ == "__main__":
+    tela = TelaPython()
+    tela.Iniciar() 
