@@ -63,9 +63,8 @@ class TelaPython:
         
     def Iniciar(self):
         while True:
-            
             self.tentativa += 1
-                        
+     
             #Pega os dados
             self.button, self.values = self.janela.Read()
             #print(self.values)
@@ -95,7 +94,7 @@ class TelaPython:
             
             f = self.GeraFuncao(x, a, b, c, tipo)   
             
-            titulo = ("f(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * x)")
+            titulo = ("f(x) = " + str(a) + " + " + str(b) + " * " + tipo + "(" + str(c)+ " * x)")
             
             #Recebe os dados da segunda função (g)
             a = float(self.values["A2"])
@@ -110,7 +109,7 @@ class TelaPython:
             #Tupla Eixo X |start           end        step|         Sempre baseado na primeira função
             g = self.GeraFuncao(x, a, b, c, tipo)    
             
-            titulo += ("  |  g(x) = " + str(a) + " * " + str(b) + "* " + tipo + "(" + str(c)+ " * x)")
+            titulo += ("  |  g(x) = " + str(a) + " + " + str(b) + " * " + tipo + "(" + str(c)+ " * x)")
 
             #Subplot das linhas de referencias do cartesiano e configurações
             fig = plt.figure("Gráfico das funções")
@@ -134,6 +133,7 @@ class TelaPython:
             plt.title(titulo)          
             plt.plot(x, f)
             plt.plot(x, g)
+            plt.legend(['f(x)', 'g(x)'], loc = 2)
             plt.plot(XFantasma, YFantasma, "X", markersize = 20)
             
             #Calcula os pontos de encontro das funções
@@ -159,7 +159,7 @@ class TelaPython:
             #print(XInterseccao)
             #print(YInterseccao)
                 
-            print (f"[{self.tentativa} tentativa]")
+            print (f"[{self.tentativa} Rodada]")
             
             if (first_line == second_line):
                 print("As funções são iguais!")
@@ -167,16 +167,22 @@ class TelaPython:
                 print ("Eles batem antes de encontrar o fantasma!")
             else:
                 print ("Boa! Eles não batem antes do fantasma!")
-            
-                if (abs(f[-1]) - YFantasma <= 3):
-                    print ("Sucesso! Você acertou o fanstasma!")
+                dist1 = abs(f[-1] - YFantasma)
+                dist2 = abs(g[-1] - YFantasma)
+                
+                print("Distancia primeiro jogador: " + dist1)
+                print("Distancia segundo jogador: " + dist2)
+
+                if (dist1 <= 1 and dist1 <= dist2):
+                    print ("O primeiro jogador acertou o fantasma!")
+                elif (dist2 <= 1 and dist2 <= dist1):
+                    print("O segundo jogador acertou o fantasma!")       
                 else:
-                    print ("Droga! Você errou o fanstasma!")        
+                    print("Ninguém acertou o fanstasma!") 
             
-            print ("\n")        
+            print ("\n")       
             
             plt.show()
-            plt.clf()
             
 if __name__ == "__main__":
     tela = TelaPython()
